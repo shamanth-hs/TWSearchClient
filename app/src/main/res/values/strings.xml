@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">TW Search Client</string>
+    <string name="eg_avengers">Eg. Avengers</string>
+    <string name="no_data">No Data</string>
+</resources>
