@@ -11,7 +11,7 @@ import retrofit2.http.Path
 
 class TweetService : BaseService() {
 
-
+    //APi call to get the data from the API
     fun getTweets(httpCallBack: HttpCallBack) {
         val instance = retrofit.create(TweetInterface::class.java)
         val call = instance.getTweets()
@@ -29,31 +29,32 @@ class TweetService : BaseService() {
 
     }
 
-    fun getHtmldata(path:String?) {
-        val instance = imageretrofit.create(TweetInterface::class.java)
-        val call = instance.getHtml(path)
-        call.enqueue(object : Callback<ResponseBody> {
-            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                t.printStackTrace()
-//                httpCallBack.onFailure(t)
-            }
+    //currently not being used
+//    fun getHtmldata(path:String?) {
+//        val instance = imageRetrofit.create(TweetInterface::class.java)
+//        val call = instance.getHtml(path)
+//        call.enqueue(object : Callback<ResponseBody> {
+//            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+//                t.printStackTrace()
+////                httpCallBack.onFailure(t)
+//            }
+//
+//            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+//                if (response.isSuccessful)
+//                    Log.i("apicall", "onResponse: ${response.raw()}")
+//            }
+//
+//        })
 
-            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
-                if (response.isSuccessful)
-                    Log.i("apicall", "onResponse: ${response.raw()}")
-            }
-
-        })
-
-    }
+//    }
 
 
     interface TweetInterface {
         @GET("tweets")
         fun getTweets(): Call<TweetData>
 
-        @GET("{path}")
-        fun getHtml(@Path("path") path:String?):Call<ResponseBody>
+//        @GET("{path}")
+//        fun getHtml(@Path("path") path:String?):Call<ResponseBody>
     }
 
 

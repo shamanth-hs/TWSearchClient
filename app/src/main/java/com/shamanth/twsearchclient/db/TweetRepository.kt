@@ -9,5 +9,5 @@ class TweetRepository(private val dataDao: DataDao) {
 
     fun insertAllTweetData(data: Data) = dataDao.insertAll(data)
 
-    fun getDataFromQuery(queryString:String) = dataDao.getTweetFromString("%$queryString%")
+    fun getDataFromQuery(queryString:String) = dataDao.getTweetFromString("%$queryString%")// adding % at start and end as a wild card character
 }

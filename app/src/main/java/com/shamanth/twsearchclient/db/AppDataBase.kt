@@ -4,8 +4,9 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.shamanth.twsearchclient.utility.AppConstants
 
-@Database(entities = arrayOf(Data::class), version = 1,exportSchema = false)
+@Database(entities = [Data::class], version = 1,exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun userDao(): DataDao
 
@@ -23,7 +24,7 @@ abstract class AppDatabase : RoomDatabase() {
             synchronized(true){
                 val db = Room.databaseBuilder(
                     context.applicationContext,
-                    AppDatabase::class.java, "tweet_data"
+                    AppDatabase::class.java, AppConstants.DB_NAME
                 ).build()
                 INSTANCE = db
                 return db

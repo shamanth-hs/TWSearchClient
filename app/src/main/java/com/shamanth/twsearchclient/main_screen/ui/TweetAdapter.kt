@@ -39,24 +39,29 @@ class TweetAdapter(val context: Context) : ListAdapter<Data, TweetAdapter.MyView
 
 
     inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val profileImage: ImageView = view.findViewById(R.id.profile_image)
-        val userName = view.findViewById<TextView>(R.id.user_name)
-        val userHandle: TextView = view.findViewById(R.id.twitter_handle)
-        val messageText: TextView = view.findViewById(R.id.tweet_text)
-        val retweetCount: TextView = view.findViewById(R.id.retweet_count)
-        val likesCount: TextView = view.findViewById(R.id.likes_count)
+        private val profileImage: ImageView = view.findViewById(R.id.profile_image)
+        private val userName: TextView = view.findViewById(R.id.user_name)
+        private val userHandle: TextView = view.findViewById(R.id.twitter_handle)
+        private val messageText: TextView = view.findViewById(R.id.tweet_text)
+        private val retweetCount: TextView = view.findViewById(R.id.retweet_count)
+        private val likesCount: TextView = view.findViewById(R.id.likes_count)
 
         fun bind(data: Data) {
-//            val url = URL(data.profileImageUrl)
-//            val bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream())
-//            profileImage.setImageBitmap(bmp)
-//            profileImage.setImageResource(R.drawable.ic_person_24dp)
+
+            userName.text = data.name
+            userHandle.text = data.handle
+            messageText.text = data.text
+            retweetCount.text = data.retweetCount.toString()
+            likesCount.text = data.favoriteCount.toString()
+
+
             val imageUrl = if (URLUtil.isValidUrl(data.profileImageUrl))
                 Uri.parse(data.profileImageUrl.trim()).path
             else
                 ""
-            Log.e("tweetAdapter", "bind: $imageUrl")
-//            TweetService().getHtmldata(imageUrl)
+            Log.d("tweetAdapter", "bind: $imageUrl")
+
+           // TODO("have to check the URL weather the image is present or not")
             Glide.with(context)
                 .load(data.profileImageUrl)
                 .skipMemoryCache(true)
@@ -66,15 +71,18 @@ class TweetAdapter(val context: Context) : ListAdapter<Data, TweetAdapter.MyView
                 .dontAnimate()
                 .dontTransform()
                 .into(profileImage)
-//            Picasso.with(context)
-//                .load(imageUrl)
-//                .error(R.drawable.ic_person_24dp)
-//                .into(profileImage)
-            userName.text = data.name
-            userHandle.text = data.handle
-            messageText.text = data.text
-            retweetCount.text = data.retweetCount.toString()
-            likesCount.text = data.favoriteCount.toString()
+
+            /*
+            Alternate way by using picasso
+
+            Picasso.with(context)
+            .load(imageUrl)
+            .error(R.drawable.ic_person_24dp)
+            .into(profileImage)
+
+             */
+
+
         }
     }
 

@@ -2,4 +2,7 @@
     <string name="app_name">TW Search Client</string>
     <string name="eg_avengers">Eg. Avengers</string>
     <string name="no_data">No Data</string>
+    <string name="search_icon">search icon</string>
+    <string name="search">Search</string>
+    <string name="enter_text">Enter Text</string>
 </resources>

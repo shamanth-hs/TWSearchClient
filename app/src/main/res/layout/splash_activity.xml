@@ -36,7 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_15dp"
         android:textSize="@dimen/_10sp"
-        android:text="TW Search Client"
+        android:text="@string/app_name"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

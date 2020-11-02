@@ -12,19 +12,22 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class TweetViewModel(application: Application) : AndroidViewModel(application) {
-    private var _queryString = MutableLiveData<String>()
+    private var _queryString = MutableLiveData<String>() //data to update the query string
 
     private val repository: TweetRepository
 
     init {
         val tweetDao = AppDatabase.getInstance(application).userDao()
         repository = TweetRepository(tweetDao)
+        fetchDataFromApi()
     }
 
+    //observe the data change in queryString if there is a change get the updated data
     private var tweettData: LiveData<List<Data>> = Transformations.switchMap(_queryString){
         repository.getDataFromQuery(_queryString.value!!)
     }
 
+    //add the tweets to the rooms DB
     fun addTweet(data: List<Data>) {
         viewModelScope.launch(Dispatchers.IO) {
             for (eachData in data)
@@ -32,11 +35,8 @@ class TweetViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-//    fun getTweetFromQueryString(queryString: String) {
-//        tweettData = repository.getDataFromQuery(queryString)
-//    }
-
-    fun fetchDataFromApi() {
+    //get data from the given API
+    private fun fetchDataFromApi() {
         viewModelScope.launch(Dispatchers.IO) {
             TweetService().getTweets(object : HttpCallBack {
                 override fun onSuccess(data: TweetData?) {
